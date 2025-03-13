@@ -22,10 +22,8 @@ drive_service = build('drive', 'v3', credentials=credentials)
 
 @app.route("/test-drive", methods=["GET"])
 def test_drive():
-    # Coba list file di Google Drive
-    results = drive_service.files().list(pageSize=10, fields="files(id, name)").execute()
-    files = results.get("files", [])
-    return jsonify(files)
+    return jsonify({"message": "Google Drive API test"})
+
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=8000)
