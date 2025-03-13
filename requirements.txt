@@ -1,6 +1,8 @@
-gunicorn==20.1.0
-requests==2.31.0
-google-auth==2.26.0
-google-auth-oauthlib==1.2.0
-google-auth-httplib2==0.2.0
-google-api-python-client==2.112.0
+flask
+gunicorn
+yt-dlp
+google-auth
+google-auth-oauthlib
+google-auth-httplib2
+google-auth-python
+google-api-python-client
