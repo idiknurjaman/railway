@@ -1,8 +1,10 @@
-import os
-import json
-from google.oauth2.service_account import Credentials
-from googleapiclient.discovery import build
-from flask import Flask, request, jsonify
+    import os
+    import json
+    import random
+    import subprocess
+    from flask import Flask, request, jsonify
+    from google.oauth2.service_account import Credentials
+    from googleapiclient.discovery import build
 
 app = Flask(__name__)
 
@@ -33,5 +35,10 @@ def test_drive():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+
+    @app.route("/create-thumbnail", methods=["POST"])
+    def create_thumbnail_route():
+        # ... (ambil video_url dari request.json dan panggil create_thumbnail)
+        
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
