@@ -1,0 +1,43 @@
+name: Build Docker Image
+
+    on:
+      push:
+        branches:
+          - main # Ganti dengan nama branch Anda
+
+    jobs:
+      build:
+        runs-on: ubuntu-latest
+
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v2
+
+          - name: Build Docker image
+            run: docker build -t [thumbnail-generator] .
+
+          - name: Push Docker image (Opsional)
+            # Konfigurasikan untuk mendorong image ke registry container Anda
+            # Misalnya, Docker Hub atau Google Container Registry
+            # ...
+    ```
+
+    * Ganti `[NAMA_IMAGE]` dengan nama yang Anda inginkan untuk image Docker Anda.
+    * Ganti `main` dengan nama branch Anda.
+2.  **Commit dan Push:**
+    * Commit dan push file workflow ke repositori GitHub Anda.
+3.  **GitHub Actions akan Otomatis Berjalan:**
+    * Setiap kali Anda melakukan push ke branch `main`, GitHub Actions akan otomatis menjalankan workflow yang Anda buat.
+    * Workflow ini akan membangun image Docker Anda.
+
+**Opsi 2: Menggunakan Railway:**
+
+* Railway secara otomatis mendeteksi Dockerfile di repositori Anda dan membangun image Docker saat Anda men-deploy aplikasi Anda.
+* Anda tidak perlu melakukan langkah tambahan untuk membangun image Docker secara terpisah.
+
+**Kesimpulan:**
+
+* Jika Anda menggunakan GitHub Actions, Anda dapat mengotomatiskan pembuatan image Docker setiap kali Anda melakukan push ke repositori Anda.
+* Jika Anda menggunakan Railway, Anda tidak perlu khawatir tentang pembuatan image Docker secara terpisah.
+
+Semoga informasi ini membantu!
