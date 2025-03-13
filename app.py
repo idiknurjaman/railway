@@ -8,6 +8,7 @@ app = Flask(__name__)
 
 # Ambil credentials dari environment variable
 gdrive_credentials_json = os.getenv("GDRIVE_CREDENTIALS")
+print("GDRIVE_CREDENTIALS:", gdrive_credentials_json)
 
 if not gdrive_credentials_json:
     raise ValueError("❌ GDRIVE_CREDENTIALS tidak ditemukan di environment variable!")
