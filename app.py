@@ -8,7 +8,6 @@ app = Flask(__name__)
 
 # Ambil credentials dari environment variable
 gdrive_credentials_json = os.getenv("GDRIVE_CREDENTIALS")
-print("GDRIVE_CREDENTIALS:", gdrive_credentials_json)
 
 if not gdrive_credentials_json:
     raise ValueError("❌ GDRIVE_CREDENTIALS tidak ditemukan di environment variable!")
@@ -22,11 +21,17 @@ drive_service = build('drive', 'v3', credentials=credentials)
 
 @app.route("/test-drive", methods=["GET"])
 def test_drive():
-    return jsonify({"message": "Google Drive API test"})
+    try:
+        # Contoh: Dapatkan daftar file di Google Drive
+        results = drive_service.files().list(pageSize=10, fields="nextPageToken, files(id, name)").execute()
+        items = results.get('files', [])
+        if not items:
+            return jsonify({"message": "Tidak ada file ditemukan di Google Drive."})
+        else:
+            file_names = [item['name'] for item in items]
+            return jsonify({"message": "Koneksi ke Google Drive API berhasil.", "files": file_names})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
-@app.route("/", methods=["GET"])
-    def hello():
-        return jsonify({"message": "Hello, World!"})
-        
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8080)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
